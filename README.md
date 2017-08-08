@@ -1,7 +1,7 @@
 New Relic CLI
 =======================
 
-[![CircleCI](https://circleci.com/gh/previousnext/CHANGE_ME.svg?style=svg)](https://circleci.com/gh/previousnext/CHANGE_ME)
+[![CircleCI](https://circleci.com/gh/previousnext/newrelic-cli.svg?style=svg)](https://circleci.com/gh/previousnext/newrelic-cli)
 
 **Maintainer**: Nick Santamaria <nick.santamaria@previousnext.com.au>
 
