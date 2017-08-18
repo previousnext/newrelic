@@ -11,13 +11,15 @@ type Client struct {
 	key string
 }
 
-type deploymentRequest struct {
-	Deployment deployment `json:"deployment"`
+type DeploymentInput struct {
+	Deployment Deployment `json:"deployment"`
 }
 
-type deployment struct {
-	Revision string `json:"revision"`
-	User     string `json:"user"`
+type Deployment struct {
+	Revision    string `json:"revision"`
+	Changelog   string `json:"changelog"`
+	Description string `json:"description"`
+	User        string `json:"user"`
 }
 
 // Applications is a collection of New Relic applications.
@@ -78,14 +80,7 @@ func (n *Client) ListApplications() (Applications, error) {
 
 // Deployment sends a deployment tag to a New Relic application.
 // https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/recording-deployments
-func (n *Client) Deployment(id int64, revision, user string) error {
-	d := deploymentRequest{
-		deployment{
-			Revision: revision,
-			User:     user,
-		},
-	}
-
+func (n *Client) Deployment(id int64, d DeploymentInput) error {
 	_, body, errs := gorequest.New().Post(fmt.Sprintf("https://api.newrelic.com/v2/applications/%d/deployments.json", id)).
 		Set("X-Api-Key", n.key).
 		Set("Content-Type", "application/json").
