@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	nr "github.com/previousnext/newrelic-api"
+	"github.com/previousnext/go-newrelic"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"os"
 )
@@ -21,31 +21,32 @@ var (
 
 func main() {
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
-	// Record deployment.
+	// Record deployment command.
 	case deploy.FullCommand():
-		// Set up client.
-		n := nr.NewClient(*apiKey)
+		n := newrelic.New(*apiKey)
 
 		deployCommand(n)
 	}
 }
 
-func deployCommand(n nr.Client) {
+func deployCommand(n newrelic.Client) {
 	// Figure out the appID from the appName.
-	appID, err := nr.NameToApplicationID(n, *deployAppName)
+	appID, err := n.NameToApplicationID(*deployAppName)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("Error retrieving appID for '%s'", *deployAppName))
 		panic(err)
 	}
 
-	dep := nr.DeploymentParams{
-		Revision:    *deployRevision,
-		Changelog:   *deployChangelog,
-		Description: *deployDescription,
-		User:        *deployUser,
+	dply := newrelic.DeploymentInput{
+		Deployment: newrelic.Deployment{
+			Revision:    *deployRevision,
+			Changelog:   *deployChangelog,
+			Description: *deployDescription,
+			User:        *deployUser,
+		},
 	}
 
-	e := nr.Deployment(n, appID, dep)
+	e := n.Deployment(appID, dply)
 	if e != nil {
 		panic(e)
 	}

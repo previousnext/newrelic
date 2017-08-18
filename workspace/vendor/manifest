@@ -2,6 +2,12 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/alecthomas/kingpin",
+			"repository": "https://github.com/alecthomas/kingpin",
+			"revision": "1087e65c9441605df944fb12c33f0fe7072d18ca",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/alecthomas/template",
 			"repository": "https://github.com/alecthomas/template",
 			"revision": "a0175ee3bccc567396460bf5acd36800cb10c49c",
@@ -29,6 +35,12 @@
 			"importpath": "github.com/pkg/errors",
 			"repository": "https://github.com/pkg/errors",
 			"revision": "c605e284fe17294bda444b34710735b29d1a9d90",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/previousnext/go-newrelic",
+			"repository": "https://github.com/previousnext/go-newrelic",
+			"revision": "574b0dd6c1799ec17a368d855249c7180fa7a5f8",
 			"branch": "master"
 		},
 		{
